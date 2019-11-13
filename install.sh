@@ -7,6 +7,7 @@ sudo apt install htop -y
 
 #php
 sudo apt install php -y
+sudo apt install composer -y
 #mariadb + configuratuin
 sudo apt install mariadb-server -y
 sudo apt install php-mysql -y
