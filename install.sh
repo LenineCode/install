@@ -46,15 +46,19 @@ systemctl start mariadb.service
 #initialisation user root mdp root
 sudo mysql --user root
 UPDATE mysql.user SET Password = PASSWORD('root') WHERE User = 'root';
+CREATE DATABASE example;
+GRANT ALL PRIVILEGES ON *.* TO "root"@"localhost" IDENTIFIED BY "root";
 FLUSH PRIVILEGES;
-exit
+QUIT;
 
 #git
 ## faire en sorte de demander l'user.name et user.email
 sudo apt install git -y
 recap(echo $?, "git")
 git config --global user.name "felixleo22"
+recap(echo $? "git user.name")
 git config --global user.email leofelixoff@outlook.fr
+recap(echo $? "git user.email")
 git config --global credential.helper 'cache --timeout 36000'
 
 #zsh
