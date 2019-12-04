@@ -101,7 +101,7 @@ recap(echo $?, "zsh")
 sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 ## changer le ZSH_THEME dans .zshrc
 #ZSH_THEME="agnoster"
-
+sed -i '/^ZSH_THEME=/s/robbyrussell/agnoster/' ~/.zshrc
 sudo apt-get install fonts-powerline
 recap(echo $?, "fonts-powerline")
 
@@ -139,11 +139,13 @@ dpkg -i Minecraft.deb
 recap(echo $?, "Minecraft")
 rm Minecraft.deb
 
+#discord 
 sudo snap install discord
 recap(echo $?, "discord")
 
-touch log.txt
+############## generation d'un log ##############
 
+touch log.txt
 echo -e "Fin des installations, un fichier de log est fournit pour voir les succes et les echecs"
 
 echo -e "Les succes" >> ./log.txt
