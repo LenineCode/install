@@ -25,6 +25,24 @@ recap(echo $?, "update")
 sudo apt full-upgrade -y
 recap(echo $?, "full-upgrade")
 
+############## git ##############
+
+## faire en sorte de demander l'user.name et user.email
+sudo apt install git -y
+recap(echo $?, "git")
+
+echo -e "Saisit ton user.name git"
+read username
+git config --global user.name $username
+recap(echo $? "git user.name")
+
+echo -e "Saisit ton user.email git"
+read useremail
+git config --global user.email $useremail
+recap(echo $? "git user.email")
+
+git config --global credential.helper 'cache --timeout 36000'
+
 ############## langage ##############
 
 #php
@@ -81,16 +99,6 @@ QUIT;
 sudo apt-get install phpmyadmin -y
 recap(echo $?, "phpmyadmin")
 
-############## git ##############
-## faire en sorte de demander l'user.name et user.email
-sudo apt install git -y
-recap(echo $?, "git")
-git config --global user.name "felixleo22"
-recap(echo $? "git user.name")
-git config --global user.email leofelixoff@outlook.fr
-recap(echo $? "git user.email")
-git config --global credential.helper 'cache --timeout 36000'
-
 ############## configuration du terminal ##############
 
 #zsh
@@ -99,7 +107,6 @@ recap(echo $?, "zsh")
 
 #oh my zsh
 sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-## changer le ZSH_THEME dans .zshrc
 #ZSH_THEME="agnoster"
 sed -i '/^ZSH_THEME=/s/robbyrussell/agnoster/' ~/.zshrc
 sudo apt-get install fonts-powerline
@@ -110,6 +117,7 @@ echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> ~/.zshrc
 
 ############## docker ##############
+
 #docker
 sudo apt install docker.io
 recap(echo $?, "docker")
