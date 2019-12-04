@@ -2,18 +2,19 @@
 
 #declaration des variables
 
-success = 0
-echec = 0
+success=0
+echec=0
 
 # $1 le code de retour
 # $2 le nom de la commande
 function recap() {
-    if [ $1 -ne 0 ] then
-        echec = `expr $echec + 1`
-        tabechec[$echec] = $2
+    if [ $1 -ne 0 ] 
+    then
+        echec=`expr $echec + 1`
+        tabechec[$echec]=$2
     else
- 	success = `expr $success + 1`
-        tabsuccess[$success] = $2
+ 	    success=`expr $success + 1`
+        tabsuccess[$success]=$2
     fi
 }
 
@@ -89,7 +90,7 @@ systemctl start mariadb.service
 
 #initialisation user root mdp root
 sudo mysql --user root
-UPDATE mysql.user SET Password = PASSWORD('root') WHERE User = 'root';
+UPDATE mysql.user SET Password=PASSWORD('root') WHERE User='root';
 CREATE DATABASE example;
 GRANT ALL PRIVILEGES ON *.* TO "root"@"localhost" IDENTIFIED BY "root";
 FLUSH PRIVILEGES;
