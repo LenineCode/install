@@ -141,3 +141,19 @@ rm Minecraft.deb
 
 sudo snap install discord
 recap(echo $?, "discord")
+
+touch log.txt
+
+echo -e "Fin des installations, un fichier de log est fournit pour voir les succes et les echecs"
+
+echo -e "Les succes" >> ./log.txt
+for mot in ${tabsuccess[*]}
+do
+echo -e $mot >> ./log.txt
+done
+
+echo -e "Les echecs" >> ./log.txt
+for mot in ${tabechec[*]}
+do
+echo -e $mot >> ./log.txt
+done
