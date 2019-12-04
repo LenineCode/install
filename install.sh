@@ -21,26 +21,26 @@ function recap() {
 ############## upgrade ##############
 
 sudo apt update
-recap(echo $?, "update")
+recap($('echo $?'), "update")
 
 sudo apt full-upgrade -y
-recap(echo $?, "full-upgrade")
+recap($('echo $?'), "full-upgrade")
 
 ############## git ##############
 
 ## faire en sorte de demander l'user.name et user.email
 sudo apt install git -y
-recap(echo $?, "git")
+recap($('echo $?'), "git")
 
 echo -e "Saisit ton user.name git"
 read username
 git config --global user.name $username
-recap(echo $? "git user.name")
+recap($('echo $?') "git user.name")
 
 echo -e "Saisit ton user.email git"
 read useremail
 git config --global user.email $useremail
-recap(echo $? "git user.email")
+recap($('echo $?') "git user.email")
 
 git config --global credential.helper 'cache --timeout 36000'
 
@@ -48,42 +48,42 @@ git config --global credential.helper 'cache --timeout 36000'
 
 #php
 sudo apt install php -y
-recap(echo $?, "php")
+recap($('echo $?'), "php")
 sudo apt install composer -y
-recap(echo $?, "composer")
+recap($('echo $?'), "composer")
 
 #nvm
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
 ./install.sh
-recap(echo $?, "nvm")
+recap($('echo $?'), "nvm")
 
 #node v12
 nvm install 12
 
 #sass
 npm install -g sass
-recap(echo $?, "sass")
+recap($('echo $?'), "sass")
 
 #python
 sudo apt install python3-dev python3-pip python3-setuptools -y
-recap(echo $?, "module python")
+recap($('echo $?'), "module python")
 
 ############## commande indispensable ##############
 sudo apt install htop -y
-recap(echo $?, "htop")
+recap($('echo $?'), "htop")
 
 #fuck
 sudo pip3 install thefuck
-recap(echo $?, "fuck")
+recap($('echo $?'), "fuck")
 
 ############## base de données ##############
 
 #mariadb + configuration
 sudo apt install mariadb-server -y
-recap(echo $?, "mariadb-serve")
+recap($('echo $?'), "mariadb-serve")
 
 sudo apt install php-mysql -y
-recap(echo $?, "php-mysql")
+recap($('echo $?'), "php-mysql")
 
 #lancement de mariadb
 systemctl start mariadb.service
@@ -98,13 +98,13 @@ QUIT;
 
 #phpmyadmin
 sudo apt-get install phpmyadmin -y
-recap(echo $?, "phpmyadmin")
+recap($('echo $?'), "phpmyadmin")
 
 ############## configuration du terminal ##############
 
 #zsh
 sudo apt install zsh -y
-recap(echo $?, "zsh")
+recap($('echo $?'), "zsh")
 
 #oh my zsh
 sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
@@ -112,7 +112,7 @@ sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install
 #ZSH_THEME="agnoster"
 sed -i '/^ZSH_THEME=/s/robbyrussell/agnoster/' ~/.zshrc
 sudo apt-get install fonts-powerline
-recap(echo $?, "fonts-powerline")
+recap($('echo $?'), "fonts-powerline")
 
 #utilisation de nvm dans zsh
 echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
@@ -122,9 +122,9 @@ echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm"
 
 #docker
 sudo apt install docker.io
-recap(echo $?, "docker")
+recap($('echo $?'), "docker")
 sudo apt install docker-compose
-recap(echo $?, "docker-compose")
+recap($('echo $?'), "docker-compose")
 
 # ajout group user
 sudo usermod -a -G docker $USER
@@ -138,29 +138,29 @@ sudo sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stabl
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 sudo apt-get update
 sudo apt-get install google-chrome-stable
-recap(echo $?, "chrome")
+recap($('echo $?'), "chrome")
 
 #vscode
 sudo snap install code --classic
-recap(echo $?, "vscode")
+recap($('echo $?'), "vscode")
 
 #minecraft 
 wget https://launcher.mojang.com/download/Minecraft.deb
 dpkg -i Minecraft.deb
-recap(echo $?, "Minecraft")
+recap($('echo $?'), "Minecraft")
 rm Minecraft.deb
 
 #discord 
 sudo snap install discord
-recap(echo $?, "discord")
+recap($('echo $?'), "discord")
 
 ############## upgrade ##############
 
 sudo apt update
-recap(echo $?, "update")
+recap($('echo $?'), "update")
 
 sudo apt full-upgrade -y
-recap(echo $?, "full-upgrade")
+recap($('echo $?'), "full-upgrade")
 
 ############## generation d'un log ##############
 
