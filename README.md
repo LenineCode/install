@@ -30,10 +30,10 @@ Le script installe une base de donnée maria-db ainsi que le module php pour pou
 Une base de données example sera créé par défaut pour pouvoir utiliser phpmyadmin immédiatement.
 
 ### Terminal
-zsh avec le thème agnoster sera installé.
+ZSH avec Oh My ZSH et le thème agnoster sera installé.
 
 ### docker
-il sera installé et vous serez par défaut dans le groupe docker.
+Il sera installé et vous serez par défaut dans le groupe docker.
 
 ### Programme
 * chrome

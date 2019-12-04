@@ -107,6 +107,7 @@ recap(echo $?, "zsh")
 
 #oh my zsh
 sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+
 #ZSH_THEME="agnoster"
 sed -i '/^ZSH_THEME=/s/robbyrussell/agnoster/' ~/.zshrc
 sudo apt-get install fonts-powerline
@@ -123,6 +124,7 @@ sudo apt install docker.io
 recap(echo $?, "docker")
 sudo apt install docker-compose
 recap(echo $?, "docker-compose")
+
 # ajout group user
 sudo usermod -a -G docker $USER
 newgrp docker
@@ -150,6 +152,14 @@ rm Minecraft.deb
 #discord 
 sudo snap install discord
 recap(echo $?, "discord")
+
+############## upgrade ##############
+
+sudo apt update
+recap(echo $?, "update")
+
+sudo apt full-upgrade -y
+recap(echo $?, "full-upgrade")
 
 ############## generation d'un log ##############
 
