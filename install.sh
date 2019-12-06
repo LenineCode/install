@@ -144,6 +144,10 @@ recap($('echo $?'), "chrome")
 sudo snap install code --classic
 recap($('echo $?'), "vscode")
 
+#telegramm
+sudo apt install telegram-desktop
+recap($('echo $?'), "telegram")
+
 #minecraft 
 wget https://launcher.mojang.com/download/Minecraft.deb
 dpkg -i Minecraft.deb
@@ -153,6 +157,16 @@ rm Minecraft.deb
 #discord 
 sudo snap install discord
 recap($('echo $?'), "discord")
+
+#postman
+sudo snap install postman
+recap($('echo $?'), "postman")
+
+#teamviewer
+wget "https://download.teamviewer.com/download/linux/teamviewer_amd64.deb"
+dpkg -i teamviewer_amd64.deb
+recap($('echo $?'), "Teamviewer")
+rm teamviewer_amd64.deb
 
 ############## upgrade ##############
 
