@@ -43,12 +43,12 @@ recap "$(echo $?)" "-git"
 echo -e "Saisit ton user.name git"
 read username
 git config --global user.name $username
-recap "$(echo $?)" "-git user.name"
+recap "$(echo $?)" "-user.name"
 
 echo -e "Saisit ton user.email git"
 read useremail
 git config --global user.email $useremail
-recap "$(echo $?)" "-git user.email"
+recap "$(echo $?)" "-user.email"
 
 git config --global credential.helper 'cache --timeout 36000'
 
@@ -68,6 +68,9 @@ waitFinish $!
 ./install.sh
 recap "$(echo $?)" "-nvm"
 
+#refresh
+/bin/bash
+
 #node v12
 nvm install 12 &
 waitFinish $!
@@ -80,7 +83,7 @@ recap "$(echo $?)" "-sass"
 #python
 sudo apt install python3-dev python3-pip python3-setuptools -y &
 waitFinish $!
-recap "$(echo $?)" "-module python"
+recap "$(echo $?)" "-python"
 
 ############## commande indispensable ##############
 sudo apt install htop -y &
@@ -153,7 +156,6 @@ recap "$(echo $?)" "-docker-compose"
 
 # ajout group user
 sudo usermod -a -G docker $USER
-newgrp docker
 sudo systemctl restart docker
 
 ############## programmes / logiciels ##############
@@ -179,12 +181,9 @@ waitFinish $!
 recap "$(echo $?)" "-telegram"
 
 #minecraft 
-wget https://launcher.mojang.com/download/Minecraft.deb &
-waitFinish $!
-sudo dpkg -i Minecraft.deb & 
+sudo snap install minecraft &
 waitFinish $!
 recap "$(echo $?)" "-Minecraft"
-rm Minecraft.deb
 
 #discord 
 sudo snap install discord &
