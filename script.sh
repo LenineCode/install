@@ -63,9 +63,10 @@ waitFinish $!
 recap "$(echo $?)" "-composer"
 
 #nvm
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash &
+waitFinish $!
 ./install.sh
-recap "$(echo $?)" "-nvm")
+recap "$(echo $?)" "-nvm"
 
 #node v12
 nvm install 12 &
@@ -103,15 +104,14 @@ waitFinish $!
 recap "$(echo $?)" "-php-mysql"
 
 #lancement de mariadb
-systemctl start mariadb.service
+sudo systemctl start mariadb.service
 
 #initialisation user root mdp root
-sudo mysql --user root
-UPDATE mysql.user SET Password=PASSWORD('root') WHERE User='root';
+echo "UPDATE mysql.user SET Password=PASSWORD('root') WHERE User='root';
 CREATE DATABASE example;
-GRANT ALL PRIVILEGES ON *.* TO "root"@"localhost" IDENTIFIED BY "root";
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY 'root';
 FLUSH PRIVILEGES;
-QUIT;
+QUIT;" > sudo mysql --user root
 
 #phpmyadmin
 sudo apt-get install phpmyadmin -y &
@@ -126,11 +126,12 @@ waitFinish $!
 recap "$(echo $?)" "-zsh"
 
 #oh my zsh
-sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)" &
+waitFinish $!
 
 #ZSH_THEME="agnoster"
 sed -i '/^ZSH_THEME=/s/robbyrussell/agnoster/' ~/.zshrc
-sudo apt-get install fonts-powerline &
+sudo apt-get install fonts-powerline -y &
 waitFinish $!
 recap "$(echo $?)" "-fonts-powerline"
 
@@ -143,10 +144,10 @@ echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm"
 ############## docker ##############
 
 #docker
-sudo apt install docker.io &
+sudo apt install docker.io -y &
 waitFinish $!
 recap "$(echo $?)" "-docker"
-sudo apt install docker-compose &
+sudo apt install docker-compose -y &
 waitFinish $!
 recap "$(echo $?)" "-docker-compose"
 
@@ -159,10 +160,11 @@ sudo systemctl restart docker
 
 #chrome 
 sudo sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - &
+waitFinish $!
 sudo apt-get update &
 waitFinish $!
-sudo apt-get install google-chrome-stable &
+sudo apt-get install google-chrome-stable -y &
 waitFinish $!
 recap "$(echo $?)" "-chrome"
 
@@ -172,13 +174,14 @@ waitFinish $!
 recap "$(echo $?)" "-vscode"
 
 #telegramm
-sudo apt install telegram-desktop &
+sudo apt install telegram-desktop -y &
 waitFinish $!
 recap "$(echo $?)" "-telegram"
 
 #minecraft 
-wget https://launcher.mojang.com/download/Minecraft.deb
-dpkg -i Minecraft.deb & 
+wget https://launcher.mojang.com/download/Minecraft.deb &
+waitFinish $!
+sudo dpkg -i Minecraft.deb & 
 waitFinish $!
 recap "$(echo $?)" "-Minecraft"
 rm Minecraft.deb
@@ -194,8 +197,9 @@ waitFinish $!
 recap "$(echo $?)" "-postman"
 
 #teamviewer
-wget "https://download.teamviewer.com/download/linux/teamviewer_amd64.deb"
-dpkg -i teamviewer_amd64.deb &
+wget "https://download.teamviewer.com/download/linux/teamviewer_amd64.deb" &
+waitFinish $!
+sudo dpkg -i teamviewer_amd64.deb &
 waitFinish $!
 recap "$(echo $?)" "-Teamviewer"
 rm teamviewer_amd64.deb
