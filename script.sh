@@ -18,72 +18,89 @@ function recap() {
     fi
 }
 
+# $1 PID du processus qui a été éxécuté
+function waitFinish() {
+    wait $1
+}
+
 ############## upgrade ##############
 
-sudo apt update
-recap "$(echo $?)" " - update"
+sudo apt update &
+waitFinish $!
+recap "$(echo $?)" "-update"
 
-sudo apt full-upgrade -y
-recap "$(echo $?)" " - full-upgrade"
+sudo apt full-upgrade -y &
+waitFinish $!
+recap "$(echo $?)" "-full-upgrade"
 
 ############## git ##############
 
 ## faire en sorte de demander l'user.name et user.email
-sudo apt install git -y
-recap "$(echo $?)" " - git"
+sudo apt install git -y &
+waitFinish $!
+recap "$(echo $?)" "-git"
 
 echo -e "Saisit ton user.name git"
 read username
 git config --global user.name $username
-recap "$(echo $?)" " - git user.name"
+recap "$(echo $?)" "-git user.name"
 
 echo -e "Saisit ton user.email git"
 read useremail
 git config --global user.email $useremail
-recap "$(echo $?)" " - git user.email"
+recap "$(echo $?)" "-git user.email"
 
 git config --global credential.helper 'cache --timeout 36000'
 
 ############## langage ##############
 
 #php
-sudo apt install php -y
-recap "$(echo $?)" " - php"
-sudo apt install composer -y
-recap "$(echo $?)" " - composer"
+sudo apt install php -y &
+waitFinish $!
+recap "$(echo $?)" "-php"
+sudo apt install composer -y &
+waitFinish $!
+recap "$(echo $?)" "-composer"
 
 #nvm
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
 ./install.sh
-recap "$(echo $?)" " - nvm")
+recap "$(echo $?)" "-nvm")
 
 #node v12
-nvm install 12
+nvm install 12 &
+waitFinish $!
 
 #sass
-npm install -g sass
-recap "$(echo $?)" " - sass"
+npm install -g sass &
+waitFinish $!
+recap "$(echo $?)" "-sass"
 
 #python
-sudo apt install python3-dev python3-pip python3-setuptools -y
-recap "$(echo $?)" " - module python"
+sudo apt install python3-dev python3-pip python3-setuptools -y &
+waitFinish $!
+recap "$(echo $?)" "-module python"
 
 ############## commande indispensable ##############
-sudo apt install htop -y
-recap "$(echo $?)" " - htop"
+sudo apt install htop -y &
+waitFinish $!
+recap "$(echo $?)" "-htop"
 
 #fuck
-sudo pip3 install thefuck
-recap "$(echo $?)" " - fuck"
+sudo pip3 install thefuck &
+waitFinish $!
+recap "$(echo $?)" "-fuck"
 
 ############## base de données ##############
 
 #mariadb + configuration
-sudo apt install mariadb-server -y
-recap "$(echo $?)" " - mariadb-serve"
+sudo apt install mariadb-server -y &
+waitFinish $!
+recap "$(echo $?)" "-mariadb-serve"
 
-sudo apt install php-mysql -y
-recap "$(echo $?)" " - php-mysql"
+sudo apt install php-mysql -y &
+waitFinish $!
+recap "$(echo $?)" "-php-mysql"
 
 #lancement de mariadb
 systemctl start mariadb.service
@@ -97,22 +114,25 @@ FLUSH PRIVILEGES;
 QUIT;
 
 #phpmyadmin
-sudo apt-get install phpmyadmin -y
-recap "$(echo $?)" " - phpmyadmin"
+sudo apt-get install phpmyadmin -y &
+waitFinish $!
+recap "$(echo $?)" "-phpmyadmin"
 
 ############## configuration du terminal ##############
 
 #zsh
-sudo apt install zsh -y
-recap "$(echo $?)" " - zsh"
+sudo apt install zsh -y &
+waitFinish $!
+recap "$(echo $?)" "-zsh"
 
 #oh my zsh
 sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 
 #ZSH_THEME="agnoster"
 sed -i '/^ZSH_THEME=/s/robbyrussell/agnoster/' ~/.zshrc
-sudo apt-get install fonts-powerline
-recap "$(echo $?)" " - fonts-powerline"
+sudo apt-get install fonts-powerline &
+waitFinish $!
+recap "$(echo $?)" "-fonts-powerline"
 
 #utilisation de nvm dans zsh
 echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
@@ -123,10 +143,12 @@ echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm"
 ############## docker ##############
 
 #docker
-sudo apt install docker.io
-recap "$(echo $?)" " - docker"
-sudo apt install docker-compose
-recap "$(echo $?)" " - docker-compose"
+sudo apt install docker.io &
+waitFinish $!
+recap "$(echo $?)" "-docker"
+sudo apt install docker-compose &
+waitFinish $!
+recap "$(echo $?)" "-docker-compose"
 
 # ajout group user
 sudo usermod -a -G docker $USER
@@ -138,45 +160,55 @@ sudo systemctl restart docker
 #chrome 
 sudo sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install google-chrome-stable
-recap "$(echo $?)" " - chrome"
+sudo apt-get update &
+waitFinish $!
+sudo apt-get install google-chrome-stable &
+waitFinish $!
+recap "$(echo $?)" "-chrome"
 
 #vscode
-sudo snap install code --classic
-recap "$(echo $?)" " - vscode"
+sudo snap install code --classic &
+waitFinish $!
+recap "$(echo $?)" "-vscode"
 
 #telegramm
-sudo apt install telegram-desktop
-recap "$(echo $?)" " - telegram"
+sudo apt install telegram-desktop &
+waitFinish $!
+recap "$(echo $?)" "-telegram"
 
 #minecraft 
 wget https://launcher.mojang.com/download/Minecraft.deb
-dpkg -i Minecraft.deb
-recap "$(echo $?)" " - Minecraft"
+dpkg -i Minecraft.deb & 
+waitFinish $!
+recap "$(echo $?)" "-Minecraft"
 rm Minecraft.deb
 
 #discord 
-sudo snap install discord
-recap "$(echo $?)" " - discord"
+sudo snap install discord &
+waitFinish $!
+recap "$(echo $?)" "-discord"
 
 #postman
-sudo snap install postman
-recap "$(echo $?)" " - postman"
+sudo snap install postman &
+waitFinish $!
+recap "$(echo $?)" "-postman"
 
 #teamviewer
 wget "https://download.teamviewer.com/download/linux/teamviewer_amd64.deb"
-dpkg -i teamviewer_amd64.deb
-recap "$(echo $?)" " - Teamviewer"
+dpkg -i teamviewer_amd64.deb &
+waitFinish $!
+recap "$(echo $?)" "-Teamviewer"
 rm teamviewer_amd64.deb
 
 ############## upgrade ##############
 
-sudo apt update
-recap "$(echo $?)" " - update"
+sudo apt update &
+waitFinish $!
+recap "$(echo $?)" "-update"
 
-sudo apt full-upgrade -y
-recap "$(echo $?)" " - full-upgrade"
+sudo apt full-upgrade -y &
+waitFinish $!
+recap "$(echo $?)" "-full-upgrade"
 
 ############## generation d'un log ##############
 
