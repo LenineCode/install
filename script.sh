@@ -71,9 +71,6 @@ wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
 waitFinish $!
 recap "$(echo $?)" "-nvm"
 
-#refresh
-/bin/bash
-
 #node v12
 nvm install 12 &
 waitFinish $!
