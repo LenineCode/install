@@ -33,6 +33,10 @@ sudo apt full-upgrade -y &
 waitFinish $!
 recap "$(echo $?)" "-full-upgrade"
 
+sudo apt --fix-broken -y &
+waitFinish $!
+recap "$(echo $?)" "--fix-broken"
+
 ############## git ##############
 
 ## faire en sorte de demander l'user.name et user.email
@@ -65,7 +69,6 @@ recap "$(echo $?)" "-composer"
 #nvm
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash &
 waitFinish $!
-./install.sh
 recap "$(echo $?)" "-nvm"
 
 #refresh
@@ -174,6 +177,24 @@ recap "$(echo $?)" "-chrome"
 sudo snap install code --classic &
 waitFinish $!
 recap "$(echo $?)" "-vscode"
+
+code --install-extension dbaeumer.vscode-eslint
+waitFinish $!
+code --install-extension xabikos.javascriptsnippets
+waitFinish $!
+code --install-extension mhutchie.git-graph
+waitFinish $!
+code --install-extension eamodio.gitlens
+waitFinish $!
+code --install-extension formulahendry.terminal
+waitFinish $!
+code --install-extension gruntfuggly.todo-tree
+waitFinish $!
+code --install-extension vscode-icons-team.vscode-icons
+waitFinish $!
+code --install-extension dotjoshjohnson.xml
+waitFinish $!
+recap "$(echo $?)" "extension vscode"
 
 #telegramm
 sudo apt install telegram-desktop -y &
