@@ -1,0 +1,41 @@
+#### mobile ####
+sudo npm install -g cordova
+
+sudo apt install qemu-kvm
+sudo adduser $USER kvm
+sudo chown $USER /dev/kvm
+
+
+## libreoffice ##
+sudo apt install libreoffice
+
+## virtualbox ##
+sudo apt install virtualbox
+
+
+## NativeScript ##
+sudo apt-get install lib32z1 lib32ncurses5 libbz2-1.0:i386 libstdc++6:i386
+
+sudo apt-get install g++
+
+sudo apt-get install openjdk-8-jdk
+
+## mettre chiffe 2 pour avoir java8 par défaut ##
+sudo update-alternatives --config java
+
+echo "export JAVA_HOME=$(update-alternatives --query javac | sed -n -e 's/Best: *\(.*\)\/bin\/javac/\1/p')" >> ~/.zshrc
+
+## telecharger tool-only sdk-tool-linux https://developer.android.com/studio#Other 
+## mettre l'archive decompresser dans 
+## /usr/local/android/sdk sa devient /usr/local/android/sdk/tools
+
+echo 'export ANDROID_HOME="/usr/local/android/sdk/"' >> ~/.zshrc
+echo 'export PATH="${PATH}:${ANDROID_HOME}tools/:${ANDROID_HOME}platform-tools/"' >> ~/.zshrc
+
+sudo $ANDROID_HOME/tools/bin/sdkmanager "tools" "emulator" "platform-tools" "platforms;android-28" "build-tools;28.0.3" "extras;android;m2repository" "extras;google;m2repository"
+
+sudo npm install nativescript -g --unsafe-perm
+
+npm install -g @vue/cli-init
+
+

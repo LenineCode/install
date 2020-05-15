@@ -141,7 +141,7 @@ recap "$(echo $?)" "-fonts-powerline"
 #utilisation de nvm dans zsh
 echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> ~/.zshrc
-#dans .oh-my-zsh/themes/agnsoster.zsh-theme
+##### dans .oh-my-zsh/themes/agnsoster.zsh-theme
 
 
 ############## docker ##############
